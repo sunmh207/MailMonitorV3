@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.custom.i18n.resources" value="struts-messages"></constant>
+	
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack" >
+					<param name="fileUpload.maximumSize">81920</param>
+				</interceptor-ref>
+				<interceptor-ref name="paramsPrepareParamsStack"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="exportExcel">/WEB-INF/jsp/exportExcel.jsp</result>			
+		</global-results>
+
+		<action name="index">
+			<result type="redirectAction">
+				<param name="actionName">Welcome</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+				
+		<action name="Welcome" class="supportnet.common.action.WelcomeAction">
+			 <interceptor-ref name="myStack"></interceptor-ref> 
+			<result>/WEB-INF/jsp/main.jsp</result>
+		</action>
+	</package>
+	<include file="mail.struts.xml"></include>
+	<include file="rule.struts.xml"></include>
+</struts>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="mail" namespace="/mail" extends="default">
+		<default-interceptor-ref name="myStack" />
+
+		<action name="account" class="supportnet.mail.action.EmailAccountAction"	method="list">
+			<result name="success">/WEB-INF/jsp/mail/email_account_list.jsp</result>
+		</action>
+		<action name="accountinput" class="supportnet.mail.action.EmailAccountAction"  method="input">
+			<result name="success" type="redirectAction">account</result>
+			<result name="input">/WEB-INF/jsp/mail/email_account_form.jsp</result>
+		</action>
+	</package>
+</struts>

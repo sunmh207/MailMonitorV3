@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="supportnet.rule.domain">
+	<class name="supportnet.rule.domain.BaseRule" table="MN_RULE" discriminator-value="BaseRule">
+		<id name="id" type="string" unsaved-value="null">
+			<column name="id" sql-type="varchar(32)" />
+			<generator class="uuid.hex" />
+		</id>
+		<discriminator column="type" type="string"/>  
+		
+		<property name="project" column="project" />
+		<property name="name" column="name" />
+		<property name="desc" column="description" />
+		<property name="creator" column="creator" />
+		<property name="createTime" column="create_Time" />
+		<property name="active" column="active" type="yes_no" not-null="true"/>
+		<property name="order" column="order_no" type="integer"/>
+		<property name="stopProcessingMoreRules" column="stop_Processing_More_Rules" type="yes_no" not-null="true"/>
+		<many-to-one name="emailAccount" class="supportnet.mail.domain.EmailAccount" fetch="select" lazy="false">
+            <column name="account_id" not-null="true" />
+        </many-to-one>
+		<many-to-one name="schedule" class="supportnet.rule.domain.Schedule" fetch="select" lazy="false">
+            <column name="schedule_id" not-null="true" />
+        </many-to-one>
+		<list name="conditions" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="rule_id" not-null="true"/>
+			</key>
+			<list-index column="order_no"/>
+			<one-to-many class="supportnet.rule.domain.RuleCondition"/>
+		</list> 
+		
+		<list name="actions" table="MN_ACTION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="rule_id" not-null="true"/>
+			</key>
+			<list-index column="order_no"/>
+			<one-to-many class="supportnet.rule.domain.BaseAction"/>
+		</list> 
+		
+		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
+    	<subclass name="supportnet.rule.domain.SingleMailRule" discriminator-value="SingleMailRule">  
+    	</subclass>  
+    	
+		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
+    	<subclass name="supportnet.rule.domain.NoPairMailRule" discriminator-value="NoPairMailRule">  
+	        <property name="period" column="period" /> 	 
+	        <list name="conditions2" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+				<key>
+					<column name="rule_id" not-null="true"/>
+				</key>
+				<list-index column="order_no"/>
+				<one-to-many class="supportnet.rule.domain.RuleCondition2"/>
+			</list> 
+    	</subclass>  
+    	
+		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
+    	<subclass name="supportnet.rule.domain.NoMailRule" discriminator-value="NoMailRule">  
+        	<property name="period" column="period" /> 
+    	</subclass>  
+    	
+		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
+    	<subclass name="supportnet.rule.domain.ContinuesMailRule" discriminator-value="ContinuesMailRule">  
+        	<property name="period" column="period" /> 
+        	<property name="mailNumberThreshold" column="mail_Number_Threshold" /> 
+    	</subclass>  
+	</class>
+	
+	<class name="supportnet.rule.domain.AbstractRuleCondition" table="MN_Condition" >
+		<id name="id" type="string" unsaved-value="null">
+			<column name="id" sql-type="varchar(32)" />
+			<generator class="uuid.hex" />
+		</id>
+		<discriminator column="type" type="string" force="true"/> 
+		<property name="subjectExp" column="subject_exp" />
+		<property name="bodyExp" column="body_exp" />
+		<property name="fromExp" column="from_exp" />
+		<property name="order" column="order_no" />
+		<many-to-one name="rule" class="supportnet.rule.domain.BaseRule" fetch="select">
+            <column name="rule_id" not-null="true" />
+        </many-to-one>
+		<subclass name="supportnet.rule.domain.RuleCondition" discriminator-value="Condition">  
+    	</subclass>  
+		<subclass name="supportnet.rule.domain.RuleCondition2" discriminator-value="Condition2">  
+    	</subclass>  
+	</class>
+	
+	<class name="supportnet.rule.domain.BaseAction" table="MN_ACTION" >
+		<id name="id" type="string" unsaved-value="null">
+			<column name="id" sql-type="varchar(32)" />
+			<generator class="uuid.hex" />
+		</id>		
+		<discriminator column="type" type="string"/> 
+		<property name="order" column="order_no" />
+		<many-to-one name="rule" class="supportnet.rule.domain.BaseRule" fetch="select">
+            <column name="rule_id" not-null="true" />
+        </many-to-one>
+		
+		<subclass name="supportnet.rule.domain.SendMailAction" discriminator-value="SendMailAction">  
+			<property name="to" column="mail_to" />
+			<property name="cc" column="mail_cc" />
+			<property name="subject" column="mail_subject" />
+			<property name="body" column="mail_body" />
+    	</subclass>  
+	</class>
+	
+	<class name="supportnet.rule.domain.Schedule" table="MN_Schedule" >
+		<id name="id" type="string" unsaved-value="null">
+			<column name="id" sql-type="varchar(32)" />
+			<generator class="uuid.hex" />
+		</id>		
+		<property name="name" column="name" />
+		<property name="desc" column="description" />
+		<property name="daysOfWeek" column="days_Of_Week" />
+		<property name="timeRange" column="time_Range" />
+		<property name="timeZoneID" column="time_Zone_ID" />
+	</class>
+</hibernate-mapping>

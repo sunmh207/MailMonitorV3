@@ -1,0 +1,279 @@
+BODY {
+    margin-left: 15px;
+    margin-top: 5px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+input, textarea{
+	margin-left: 3px;	
+}
+
+.table {
+    border-collapse: collapse;
+    border-top: 1px #DDDDDD solid;
+    border-left: 1px #DDDDDD solid;
+}
+
+
+td {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #323232;
+}
+
+.page_title {
+    background-color: #FFFFFF;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #555555;
+    font-weight: bold;
+    padding: 4px;
+    border-collapse: collapse;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 2px #6392C6 solid;
+    border-left: 0px solid;
+}
+
+
+.page_banner {
+    background-color: #EFEFEF;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    padding: 4px;
+    border-collapse: collapse;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 1px #CCCCCC solid;
+    border-left: 0px solid;
+    height: 25px;
+}
+
+/**/
+.td_title {
+    background-color: #FFFFFF;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #555555;
+    font-weight: bold;
+    padding: 4px;
+    border-collapse: collapse;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 0px solid;
+    border-left: 0px solid;
+}
+
+.td_required {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #134EA1;
+    background-color: #F3F3F3;
+    padding: 2px;
+    border-right: 1px #DDDDDD solid;
+    border-bottom: 1px #DDDDDD solid;
+    height: 22px;
+}
+
+
+.button {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    FONT-SIZE: 12px;
+    HEIGHT: 20px;
+    background-image: url( ../images/btbg_03.gif );
+    border: 1px solid #A9A9A9;
+    background-color: transparent;
+    cursor: hand;
+    color: #000000;
+}
+
+
+.button_select {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    FONT-SIZE: 12px;
+    width: 21px;
+    HEIGHT: 20px;
+    background-image: url( ../images/search.gif );
+    border: 0px none;
+    background-color: transparent;
+    cursor: hand;
+}
+
+
+.button_date {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    FONT-SIZE: 12px;
+    width: 21px;
+    HEIGHT: 20px;
+    background-image: url( ../images/calbtn.gif );
+    border: 0px none;
+    background-color: transparent;
+    cursor: hand;
+}
+
+
+.td_header {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    background-color: #F3F3F3;
+    padding: 2px;
+    border-right: 1px #DDDDDD solid;
+    border-bottom: 1px #DDDDDD solid;
+    height: 22px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+
+.td_body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    background-color: #FFFFFF;
+    padding: 2px;
+    border-right: 1px #DDDDDD solid;
+    border-bottom: 1px #DDDDDD solid;
+    height: 22px;
+}
+
+
+.input {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #323232;
+    background-color: #FFFFFF;
+    height: 20px;
+    border: 1px solid #B7B3AD;
+}
+
+.input_noborder {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #323232;
+    background-color: #FFFFFF;
+    height: 20px;
+    border: 0px;
+}
+
+
+select {
+    CURSOR: auto;
+    COLOR: #000000;
+    FONT-SIZE: 12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+textarea {
+    FONT-SIZE: 12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border: 1px solid #B7B3AD;
+    overflow: auto;
+}
+
+
+.ctrlbar {
+    BORDER-RIGHT: #D8DEE6 1px solid;
+    BORDER-LEFT: #9CAFC9 1px solid;
+    BACKGROUND-COLOR: #D8DEE6
+}
+
+
+.td_lable {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    background-color: #EFEFEF;
+    padding: 7px 8px 0px 0px;
+    border-right: 1px #DDDDDD solid;
+    border-bottom: 1px #DDDDDD solid;
+    width: 200px;
+    text-align: right;
+}
+
+
+.td_edit {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    background-color: #FFFFFF;
+    padding: 2px;
+    border-right: 1px #DDDDDD solid;
+    border-bottom: 1px #DDDDDD solid;
+    height: 22px;
+    text-align: left;
+}
+
+
+/**/
+div.TopAction{
+	margin: 10px 0px 0px 0px;
+	height:30px;
+	border-bottom: 1px solid #AAAAAA;
+}
+ 
+div.TopAction a {
+	font-size:12px;
+	color: blue;
+	text-decoration: underline;
+}
+
+form.TopSearch{
+	float:left;
+	margin-left:20px;
+	text-align:left;
+}
+
+
+input.date{
+	width: 72px;
+	height:14px;	
+	margin-right: 2px 3px 2px 2px;
+	
+}
+
+.errorMessage{
+	color:red;
+	margin: 0px;
+	list-style-type: none;
+	padding: 0px;	
+}
+img.ui-datepicker-trigger{
+	padding-left: 2px;
+}
+#searchForm{
+	width: 100%;
+	margin: 20px 0px 0px 0px;
+	text-align: left;
+	float: left;
+}
+
+.userlist{
+	display:inline-table;
+	border: 1px;	
+	border-color: grey;
+}
+.userlist td{
+	width: 80px;
+}
+.deleteIcon{
+	margin-left: 3px;	
+	border: 0px;
+	cursor: pointer;
+}
+img{
+	border: 0px;
+}
+
+.buttomline{
+	color:#CCCCCC;
+}
+.buttomline a{
+	color:#CCCCCC;
+}
+.buttomline a:hover{color:#ff6600;}

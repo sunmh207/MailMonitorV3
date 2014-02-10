@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="rule" namespace="/rule" extends="default">
+		<default-interceptor-ref name="myStack" />
+		
+		<action name="schedule" class="supportnet.rule.action.ScheduleAction"	method="list">
+			<result name="success">/WEB-INF/jsp/rule/schedule/schedule_list.jsp</result>
+		</action>
+		<action name="scheduleinput" class="supportnet.rule.action.ScheduleAction"  method="input">
+			<result name="success" type="redirectAction">schedule</result>
+			<result name="input">/WEB-INF/jsp/rule/schedule/schedule_form.jsp</result>
+		</action>
+
+
+		<action name="rule" class="supportnet.rule.action.RuleAction"	method="list">
+			<result name="success">/WEB-INF/jsp/rule/rulelist.jsp</result>
+		</action>
+		
+		
+		<action name="singlemailrule" class="supportnet.rule.action.SingleMailRuleAction"	method="list">
+			<result name="success" type="redirectAction">rule</result>
+		</action>
+		<action name="singlemailruleinput" class="supportnet.rule.action.SingleMailRuleAction"  method="input">
+			<result name="success" type="redirectAction">rule</result>
+			<result name="input">/WEB-INF/jsp/rule/singlemailrule_form.jsp</result>
+		</action>
+		
+		<action name="nopairmailrule" class="supportnet.rule.action.NoPairMailRuleAction"	method="list">
+			<result name="success" type="redirectAction">rule</result>
+		</action>
+		<action name="nopairmailruleinput" class="supportnet.rule.action.NoPairMailRuleAction"  method="input">
+			<result name="success" type="redirectAction">rule</result>
+			<result name="input">/WEB-INF/jsp/rule/nopairmailrule_form.jsp</result>
+		</action>
+		
+		<action name="nomailrule" class="supportnet.rule.action.NoMailRuleAction"	method="list">
+			<result name="success" type="redirectAction">rule</result>
+		</action>
+		<action name="nomailruleinput" class="supportnet.rule.action.NoMailRuleAction"  method="input">
+			<result name="success" type="redirectAction">rule</result>
+			<result name="input">/WEB-INF/jsp/rule/nomailrule_form.jsp</result>
+		</action>
+		
+		<action name="continuesmailrule" class="supportnet.rule.action.ContinuesMailRuleAction"	method="list">
+			<result name="success" type="redirectAction">rule</result>
+		</action>
+		<action name="continuesmailruleinput" class="supportnet.rule.action.ContinuesMailRuleAction"  method="input">
+			<result name="success" type="redirectAction">rule</result>
+			<result name="input">/WEB-INF/jsp/rule/continuesmailrule_form.jsp</result>
+		</action>
+		
+		<!-- Conditions -->
+		<action name="condition" class="supportnet.rule.action.condition.Condition_ListAction"	method="list">
+			<result name="success">/WEB-INF/jsp/rule/condition/condition_list.jsp</result>
+		</action>
+		<action name="condition_form" class="supportnet.rule.action.condition.Condition_FormAction"  method="input">
+			<result name="success" type="redirectAction">condition</result>
+			<result name="input">/WEB-INF/jsp/rule/condition/condition_form.jsp</result>
+		</action>
+		<action name="condition2_form" class="supportnet.rule.action.condition.Condition2_FormAction"  method="input">
+			<result name="success" type="redirectAction">condition</result>
+			<result name="input">/WEB-INF/jsp/rule/condition/condition2_form.jsp</result>
+		</action>
+		<!-- Actions -->
+		<action name="action" class="supportnet.rule.action.ruleaction.Action_ListAction"	method="list">
+			<result name="success">/WEB-INF/jsp/rule/action/action_list.jsp</result>
+		</action>
+		<action name="sendmailaction_form" class="supportnet.rule.action.ruleaction.SendMailAction_FormAction"  method="input">
+			<result name="success" type="redirectAction">action</result>
+			<result name="input">/WEB-INF/jsp/rule/action/sendmailaction_form.jsp</result>
+		</action>
+
+	</package>
+</struts>
