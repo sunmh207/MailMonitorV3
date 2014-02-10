@@ -94,7 +94,9 @@ class NoMailAlertTask extends TimerTask {
 
 	public void run() {
 		try {
-			rule.doAction(null);
+			if(rule.matchSchedule(Calendar.getInstance().getTime())){// if match schedule, then trigger the action.
+				rule.doAction(null);
+			}
 		} catch (Exception e) {
 			InfoHandler.error(this.getClass() + " encountered an error.", e);
 		}

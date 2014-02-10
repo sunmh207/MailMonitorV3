@@ -54,6 +54,15 @@
 			<result name="input">/WEB-INF/jsp/rule/continuesmailrule_form.jsp</result>
 		</action>
 		
+		<action name="nomailontimerule" class="supportnet.rule.action.NoMailOnTimeRuleAction"	method="list">
+			<result name="success" type="redirectAction">rule</result>
+		</action>
+		<action name="nomailontimeruleinput" class="supportnet.rule.action.NoMailOnTimeRuleAction"  method="input">
+			<result name="success" type="redirectAction">rule</result>
+			<result name="input">/WEB-INF/jsp/rule/nomailontimerule_form.jsp</result>
+		</action>
+		
+		
 		<!-- Conditions -->
 		<action name="condition" class="supportnet.rule.action.condition.Condition_ListAction"	method="list">
 			<result name="success">/WEB-INF/jsp/rule/condition/condition_list.jsp</result>

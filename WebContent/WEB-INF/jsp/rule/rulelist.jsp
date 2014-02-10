@@ -22,6 +22,7 @@ Name <input name="searchForm.name" value='${searchForm.name}' size="5">
 	<input type="button" onclick="location.href='${root}/rule/nopairmailruleinput!input.do'" value="+NoPairMailRule">
 	<input type="button" onclick="location.href='${root}/rule/nomailruleinput!input.do'" value="+NoMailRule">
 	<input type="button" onclick="location.href='${root}/rule/continuesmailruleinput!input.do'" value="+ContinuesMailRule">
+	<input type="button" onclick="location.href='${root}/rule/nomailontimeruleinput!input.do'" value="+NoMailOnTimeRule">
 </div>
 <html:pagination exportExcel="false"/>
 </form>
@@ -112,6 +113,19 @@ Name <input name="searchForm.name" value='${searchForm.name}' size="5">
 						<a href="${root}/rule/condition.do?rule.id=<s:property value="id"/>">Conditions</a>&nbsp;
 						<a href="${root}/rule/action.do?rule.id=<s:property value="id"/>">Actions</a>&nbsp;
 						<a href="${root}/rule/continuesmailrule!delete.do?rule.id=<s:property value="id"/>" onclick="return forDelete()">Delete</a>
+					</s:else>
+				</s:if>
+				<!-- ContinuesMailRule -->
+				<s:if test="class.simpleName == \"NoMailOnTimeRule\"">
+					<s:if test="active">
+						<a href="${root}/rule/nomailontimerule!deactivate.do?rule.id=<s:property value="id"/>" onclick="return deactivate()">Deactivate</a>
+					</s:if>
+					<s:else>
+						<a href="${root}/rule/nomailontimerule!activate.do?rule.id=<s:property value="id"/>" onclick="return activate()">Activate</a>&nbsp;
+						<a href="${root}/rule/nomailontimeruleinput!input.do?rule.id=<s:property value="id"/>">Edit</a>&nbsp;
+						<a href="${root}/rule/condition.do?rule.id=<s:property value="id"/>">Conditions</a>&nbsp;
+						<a href="${root}/rule/action.do?rule.id=<s:property value="id"/>">Actions</a>&nbsp;
+						<a href="${root}/rule/nomailontimerule!delete.do?rule.id=<s:property value="id"/>" onclick="return forDelete()">Delete</a>
 					</s:else>
 				</s:if>
 				

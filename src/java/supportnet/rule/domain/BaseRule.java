@@ -44,7 +44,7 @@ public class BaseRule {
 	 */
 	
 
-	private boolean matchConditions(EmailMessage email){
+	public boolean matchConditions(EmailMessage email){
 		for(RuleCondition c:conditions){
 			if(c!=null&&c.match(email)){
 				return true;
@@ -53,15 +53,8 @@ public class BaseRule {
 		return false;
 	}
 	
-/*	private boolean matchExceptions(EmailMessage email){ 
-		for(RuleException e:exceptions){
-			if(e.match(email)){
-				return true;
-			}
-		}
-		return false;
-	}*/
-	private boolean matchSchedule(Date date){
+
+	public boolean matchSchedule(Date date){
 		return schedule.match(date);
 	}
 	

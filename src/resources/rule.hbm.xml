@@ -64,6 +64,11 @@
         	<property name="period" column="period" /> 
         	<property name="mailNumberThreshold" column="mail_Number_Threshold" /> 
     	</subclass>  
+		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
+    	<subclass name="supportnet.rule.domain.NoMailOnTimeRule" discriminator-value="NoMailOnTimeRule">  
+        	<property name="skew" column="skew" /> 
+        	<property name="expectedTime" column="expected_time" /> 
+    	</subclass>  
 	</class>
 	
 	<class name="supportnet.rule.domain.AbstractRuleCondition" table="MN_Condition" >
