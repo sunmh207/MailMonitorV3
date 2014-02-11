@@ -75,7 +75,7 @@ public class NoMailOnTimeRule extends BaseRule {
 
 			Calendar currentCal = Calendar.getInstance();
 			if (cal.before(currentCal)) {
-				cal = currentCal;
+				cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)+1);
 			}
 		} catch (ParseException pe) {
 			InfoHandler.error("getNextTriggerTime failed. expectedTime="+expectedTime, pe);

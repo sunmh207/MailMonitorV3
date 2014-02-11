@@ -22,21 +22,33 @@
 		<many-to-one name="schedule" class="supportnet.rule.domain.Schedule" fetch="select" lazy="false">
             <column name="schedule_id" not-null="true" />
         </many-to-one>
-		<list name="conditions" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+		<!-- <list name="conditions" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
 			<key>
 				<column name="rule_id" not-null="true"/>
 			</key>
-			<list-index column="order_no"/>
+			<list-index column="order_no"/> 
 			<one-to-many class="supportnet.rule.domain.RuleCondition"/>
-		</list> 
+		</list>  -->
+		<bag name="conditions" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+			<key>
+				<column name="rule_id" not-null="true"/>
+			</key>
+			<one-to-many class="supportnet.rule.domain.RuleCondition"/>
+		</bag> 
 		
-		<list name="actions" table="MN_ACTION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+		<!-- <list name="actions" table="MN_ACTION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
 			<key>
 				<column name="rule_id" not-null="true"/>
 			</key>
 			<list-index column="order_no"/>
 			<one-to-many class="supportnet.rule.domain.BaseAction"/>
-		</list> 
+		</list>  -->
+		<bag name="actions" table="MN_ACTION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+			<key>
+				<column name="rule_id" not-null="true"/>
+			</key>
+			<one-to-many class="supportnet.rule.domain.BaseAction"/>
+		</bag> 
 		
 		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
     	<subclass name="supportnet.rule.domain.SingleMailRule" discriminator-value="SingleMailRule">  
@@ -45,13 +57,19 @@
 		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
     	<subclass name="supportnet.rule.domain.NoPairMailRule" discriminator-value="NoPairMailRule">  
 	        <property name="period" column="period" /> 	 
-	        <list name="conditions2" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
+	        <!-- <list name="conditions2" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select">
 				<key>
 					<column name="rule_id" not-null="true"/>
 				</key>
 				<list-index column="order_no"/>
 				<one-to-many class="supportnet.rule.domain.RuleCondition2"/>
-			</list> 
+			</list>  -->
+	        <bag name="conditions2" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+				<key>
+					<column name="rule_id" not-null="true"/>
+				</key>
+				<one-to-many class="supportnet.rule.domain.RuleCondition2"/>
+			</bag> 
     	</subclass>  
     	
 		<!-- Inheritance - Single-Table-Per-Hierarchy -->  
