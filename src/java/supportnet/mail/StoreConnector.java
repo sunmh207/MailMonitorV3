@@ -52,7 +52,8 @@ public class StoreConnector  {
 				for(Folder f:findFolderResults.getFolders()){
 					if(f.getDisplayName().equals(emailAccount.getFolder())){
 						folder = f;
-						break;
+						InfoHandler.info("Connected to "+emailAccount.getUsername()+"/"+emailAccount.getFolder()+" successfully!");
+						return true;
 					}
 				}
 				InfoHandler.error("Cannot find folder: "+emailAccount.getUsername()+"/"+emailAccount.getFolder()); 
@@ -82,7 +83,8 @@ public class StoreConnector  {
 						EmailMessage email = (EmailMessage) item;
 						InfoHandler.info("EmailMessage["+i+"]:<<" + email.getSubject() + ">>");
 						processRules(email);
-						email.delete(DeleteMode.HardDelete);
+						//email.delete(DeleteMode.HardDelete);
+						email.delete(DeleteMode.MoveToDeletedItems);
 					} else {
 						InfoHandler.info("Item[i]:<<" + item.getSubject() + ">>");
 					}
@@ -112,7 +114,20 @@ public class StoreConnector  {
 		}
 	}
 
+	public EmailAccount getEmailAccount() {
+		return emailAccount;
+	}
 
+	public void setEmailAccount(EmailAccount emailAccount) {
+		this.emailAccount = emailAccount;
+	}
 
+	public Folder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
 
 }

@@ -1,6 +1,7 @@
 package supportnet.mail;
 
 import supportnet.common.util.InfoHandler;
+import supportnet.mail.domain.EmailAccount;
 
 public class RuleProcessor {
 	protected int seconds;
@@ -77,7 +78,11 @@ public class RuleProcessor {
 				}
 			};
 			interruptionRequest = false;
-			InfoHandler.info("[THREAD_START]");
+			EmailAccount emailAccount=connector.getEmailAccount();
+			String emailAddress=emailAccount==null?"":emailAccount.getUsername();
+			String folder=emailAccount==null?"":emailAccount.getFolder();
+			String id=emailAccount==null?"":emailAccount.getId();
+			InfoHandler.info("[THREAD_START]:"+emailAddress+"/"+folder+"("+id+")");
 			thread.start();
 		} else if (interruptionRequest) {
 			InfoHandler.info("[THREAD_CANCEL_INTERRUPTION_REQUEST]");

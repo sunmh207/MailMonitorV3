@@ -15,11 +15,18 @@ import supportnet.rule.domain.BaseRule;
 public class CacheServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
 	public void init(ServletConfig config) {
+		/*try{
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
+		}catch(SQLException sqle){
+			sqle.printStackTrace();
+		}*/
+		System.out.println("CacheServlet.init ...");
 		loadData();
+		System.out.println("CacheServlet.init ...[done]");
 	}
 
 	private void loadData() {
-		System.out.println("Start to load system data to cache ... "+DateUtil.getCurrentTime("yyyy-MM-dd hh:mm:ss"));
+		InfoHandler.info("Start to load system data to cache ... "+DateUtil.getCurrentTime("yyyy-MM-dd hh:mm:ss"));
 		try {
 			Constants.init(null); 
 			//SysCache.loadSysCache();
@@ -27,7 +34,7 @@ public class CacheServlet extends javax.servlet.http.HttpServlet implements java
 			EmailAccountService accountService = new EmailAccountService();
 			List<EmailAccount> accounts = accountService.queryAllEmailAccounts();
 			int seconds = Constants.seconds;
-			
+			InfoHandler.info("Scan mailbox each "+seconds+" seconds");
 			for(EmailAccount account:accounts){
 				InfoHandler.info("=== === ===EMail:"+account.getUsername()+"/"+account.getFolder());
 				List<BaseRule> rules =account.getRules();
@@ -46,6 +53,6 @@ public class CacheServlet extends javax.servlet.http.HttpServlet implements java
 			e.printStackTrace();
 			InfoHandler.error("Load Data error!",e);
 		}
-		System.out.println("Load system data to cache end. "+DateUtil.getCurrentTime("yyyy-MM-dd hh:mm:ss"));
+		InfoHandler.info("Load system data to cache end. "+DateUtil.getCurrentTime("yyyy-MM-dd hh:mm:ss"));
 	}
 }

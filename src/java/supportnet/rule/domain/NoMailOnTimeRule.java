@@ -50,6 +50,9 @@ public class NoMailOnTimeRule extends BaseRule {
 		endCal.set(Calendar.MINUTE, tmpCal.get(Calendar.MINUTE)+skew);
 		endCal.set(Calendar.SECOND, tmpCal.get(Calendar.SECOND));
 		
+		SimpleDateFormat fmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		InfoHandler.info("date:"+fmt.format(date)+",startDate:"+fmt.format(startCal.getTime())+",endDate:"+fmt.format(endCal.getTime()));
+		
 		if(date.after(startCal.getTime())&&date.before(endCal.getTime())){
 			return true;
 		}else{
@@ -92,7 +95,8 @@ public class NoMailOnTimeRule extends BaseRule {
 	@Override
 	public boolean execute(EmailMessage email) {
 		try{
-			if (match(email)&&inAcceptableTimeToday(email.getDateTimeReceived())) {
+			//if (match(email)&&inAcceptableTimeToday(email.getDateTimeReceived())) {
+			if (match(email)&&inAcceptableTimeToday(Calendar.getInstance().getTime())) {
 				receivedMails.add(email);
 			}
 		}catch(Exception e){
@@ -103,11 +107,18 @@ public class NoMailOnTimeRule extends BaseRule {
 
 	private void startCheckingTask(Date nextTriggerTime) {
 		if (alertTask != null) {
-			alertTask.cancel();
+			if(alertTask.scheduledExecutionTime()!=nextTriggerTime.getTime()){
+				alertTask.cancel();
+				InfoHandler.info("["+this.getName()+"] the nextTriggerTime is not the same, cancel the old one, and created a new one.");
+				new Timer().scheduleAtFixedRate(new CheckingTask(this), nextTriggerTime, 24 * 60 * 60 * 1000);// repeat daily
+				InfoHandler.info("timer.schedule(" + this.getClass().getSimpleName() + ".alertTask, " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextTriggerTime) + ")");
+			}else{
+				InfoHandler.info("["+this.getName()+"] the nextTriggerTime is the same, do nothing.");
+			}
+		}else{
+			new Timer().scheduleAtFixedRate(new CheckingTask(this), nextTriggerTime, 24 * 60 * 60 * 1000);// repeat daily
+			InfoHandler.info("timer.schedule(" + this.getClass().getSimpleName() + ".alertTask, " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextTriggerTime) + ")");
 		}
-		new Timer().scheduleAtFixedRate(new CheckingTask(this), nextTriggerTime, 24 * 60 * 60 * 1000);// repeat daily
-		InfoHandler.info("timer.schedule(" + this.getClass().getSimpleName() + ".alertTask, " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextTriggerTime) + ");");
-
 	}
 
 
@@ -172,6 +183,7 @@ class CheckingTask extends TimerTask {
 					rule.doAction(null);
 				}else{
 					rule.getReceivedMails().clear();
+					InfoHandler.info("["+rule.getName()+"]===ReceivedMails Cleared");
 				}
 			}
 		} catch (Exception e) {
