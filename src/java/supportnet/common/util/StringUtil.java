@@ -95,19 +95,6 @@ public class StringUtil {
 		return new String(chars);
 	}
 
-	public static String cutEndWithEllipsis(String str, int maxLength) {
-		if (str == null)
-			return null;
-
-		int len = maxLength > 1 ? maxLength : 1;
-		if (str.length() <= len) {
-			return str;
-		}
-
-		String ret = str.substring(0, len);
-		return ret + "...";
-	}
-
 	public static boolean matchRegexp(String message,String regexp){
 		if(message==null||regexp==null){
 			return false;
@@ -119,9 +106,24 @@ public class StringUtil {
 			return true;
 		}
 		return false;
+	}	
+	
+	/**
+	 * get the first string which match the regex
+	 * @param str
+	 * @param regex
+	 * @return
+	 */
+	public static String firstMatch(String str, String regex){
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(str);
+		while (m.find()) {
+			String group = m.group();
+			return group;
+		}
+		return null;
 	}
 	
-
 	public static void main(String[] args) throws Exception {
 		// System.out.println(cutEndWithEllipsis("abcdeft",5));
 		// System.out.println(StringUtil.md5("Sunr!se.123Pr0d"));
@@ -130,7 +132,7 @@ public class StringUtil {
 		
 		String v = "abc\\d+";
 		System.out.println(v);
-		System.out.println(StringUtil.matchRegexp("abc100",v));
+		System.out.println(StringUtil.firstMatch("abc10110abcced",v));
 	}
 
 }

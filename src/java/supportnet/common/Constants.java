@@ -28,7 +28,7 @@ public class Constants {
 	
 	
 	public static String DEFAULT_MAIL_SENDER_USERNAME = "Test_Supportnet_Automation@perficient.com";
-	public static String DEFAULT_MAIL_SENDER_PASSWORD = "Duqub8te";
+	public static String DEFAULT_MAIL_SENDER_PASSWORD = "Summer123!";
 	public static int seconds = 10;
 	//public static String statusReportCron = "0 50 5,13,21 * * ?";
 	public static List<String> PROJECT_LIST = new ArrayList<String>();
@@ -48,7 +48,7 @@ public class Constants {
 			String secondsStr = getProp("Seconds", "30");
 			seconds = Integer.parseInt(secondsStr);
 			DEFAULT_MAIL_SENDER_USERNAME = getProp("DEFAULT_MAIL_SENDER_USERNAME", "Test_Supportnet_Automation@perficient.com");
-			DEFAULT_MAIL_SENDER_PASSWORD = getProp("DEFAULT_MAIL_SENDER_PASSWORD", "Duqub8te");
+			DEFAULT_MAIL_SENDER_PASSWORD = getProp("DEFAULT_MAIL_SENDER_PASSWORD", "Summer123!");
 
 			//statusReportCron = getProp("statusReportCron", "0 50 5,13,21 * * ?");
 

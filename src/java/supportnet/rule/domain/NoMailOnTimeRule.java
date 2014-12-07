@@ -83,6 +83,7 @@ public class NoMailOnTimeRule extends BaseRule {
 		} catch (ParseException pe) {
 			InfoHandler.error("getNextTriggerTime failed. expectedTime="+expectedTime, pe);
 		}
+		InfoHandler.info("["+this.getName()+"].nextTriggerTime = "+cal);
 		return cal.getTime();
 	}
 	/**

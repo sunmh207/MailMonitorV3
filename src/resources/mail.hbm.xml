@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC   "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="supportnet.mail.domain">
 	
-	<class name="supportnet.mail.domain.EmailAccount" table="MN_Email_Account" >
+	<class name="supportnet.mail.domain.EmailAccount" table="mn_email_account" >
 		<id name="id" type="string" unsaved-value="null">
 			<column name="id" sql-type="varchar(32)" />
 			<generator class="uuid.hex" />

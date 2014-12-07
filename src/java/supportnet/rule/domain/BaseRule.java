@@ -7,6 +7,7 @@ import java.util.List;
 import microsoft.exchange.webservices.data.EmailMessage;
 import microsoft.exchange.webservices.data.ServiceLocalException;
 import supportnet.common.util.InfoHandler;
+import supportnet.common.util.StringUtil;
 import supportnet.mail.domain.EmailAccount;
 
 public class BaseRule {
@@ -33,17 +34,93 @@ public class BaseRule {
 	/*protected List<RuleException> exceptions= new ArrayList<RuleException>();*/
 	protected List<BaseAction> actions= new ArrayList<BaseAction>();
 	
-	
+	/**
+	 * message id expression: it is used to identify an email, especially when the NoPaireMailRule need two email 'match' by message id.
+	 * 
+	 * e.g. 
+	 * 
+	 * messageIdExpBefore="pIncId="
+	 * messageIdExp = "\d+"
+	 * messageIdExpAfter = null
+	 * 
+	 * Case 1 - message id match	  	
+	 * 	- Email 1: subject/body contains 
+	 * 		http://bsmtmart.mw.na.cat.com/bmc/DEF/Monitoring/Monitoring?pId=3018&mainTab=2&pIncId=936234
+	 *  - Email 2: subject/body contains
+	 *  	http://bsmtmart.mw.na.cat.com/bmc/DEF/Monitoring/Monitoring?pId=3018&mainTab=2&pIncId=936234
+	 *  
+	 * Case 2 - message id doesn't match	  	
+	 * 	- Email 1: subject/body contains 
+	 * 		http://bsmtmart.mw.na.cat.com/bmc/DEF/Monitoring/Monitoring?pId=3018&mainTab=2&pIncId=936234
+	 *  - Email 2: subject/body contains
+	 *  	http://bsmtmart.mw.na.cat.com/bmc/DEF/Monitoring/Monitoring?pId=3018&mainTab=2&pIncId=123456
+	 */
+	protected String messageIdExpBefore;
+	protected String messageIdExp;
+	protected String messageIdExpAfter;
+	protected String messageIdBy;// {Subject|Body|SubjectOrBody}
 
 	public void init(){};
 	public String getType(){return "BaseRule";}
 	public boolean execute(EmailMessage email){return false;}
+	
+	/**
+	 * parse message id from subject or body based on messageIdExpBefore/messageIdExp/messageIdExpAfter/messageIdBy
+	 * @param email
+	 * @return
+	 */
+	protected String parseMessageId(EmailMessage email){
+		if(StringUtil.isEmpty(messageIdExp)){
+			return null;
+		}
+		if(StringUtil.isEmpty(messageIdBy)){
+			return null;
+		}
+		
+		String id=null;
+		if(email!=null){			
+			try {
+				String subject = email.getSubject();
+				String body = email.getBody().toString();
+				String regex = messageIdExp;
+				if(messageIdExpBefore!=null){
+					regex = messageIdExpBefore+regex;
+				}
+				if(messageIdExpAfter!=null){
+					regex = regex + messageIdExpAfter;
+				}
+				
+				if("subject".equalsIgnoreCase(messageIdBy)){
+					id= StringUtil.firstMatch(subject, regex);
+				} else if("body".equalsIgnoreCase(messageIdBy)){
+					id= StringUtil.firstMatch(body, regex);
+				}else if("SubjectOrBody".equalsIgnoreCase(messageIdBy)){
+					id= StringUtil.firstMatch(subject, regex);
+					if(id==null){
+						id =StringUtil.firstMatch(body, regex);
+					}					
+				}
+				
+				if(messageIdExpBefore!=null){
+					id=id.replaceAll(messageIdExpBefore, "");
+				}
+				if(messageIdExpAfter!=null){
+					id=id.replaceAll(messageIdExpAfter, "");
+				}
+			} catch (ServiceLocalException e) {
+				InfoHandler.error("BaseRule.parseMessageId(EmailMessage email) show error.", e);				
+			}
+		}
+		
+		return id;
+	}
+
+	
 	/**
 	 * Check if the rule is active. If it is not active, shouldn't take action.
 	 * @return
 	 */
 	
-
 	public boolean matchConditions(EmailMessage email){
 		for(RuleCondition c:conditions){
 			if(c!=null&&c.match(email)){
@@ -190,6 +267,31 @@ public class BaseRule {
 		this.active = active;
 	}
 
+	public String getMessageIdExpBefore() {
+		return messageIdExpBefore;
+	}
+	public void setMessageIdExpBefore(String messageIdExpBefore) {
+		this.messageIdExpBefore = messageIdExpBefore;
+	}
+	public String getMessageIdExp() {
+		return messageIdExp;
+	}
+	public void setMessageIdExp(String messageIdExp) {
+		this.messageIdExp = messageIdExp;
+	}
+	public String getMessageIdExpAfter() {
+		return messageIdExpAfter;
+	}
+	public void setMessageIdExpAfter(String messageIdExpAfter) {
+		this.messageIdExpAfter = messageIdExpAfter;
+	}
+	public String getMessageIdBy() {
+		return messageIdBy;
+	}
+	public void setMessageIdBy(String messageIdBy) {
+		this.messageIdBy = messageIdBy;
+	}
+	
 	public boolean equals(Object other) {
         if (this == other) return true;
         if ( !(other instanceof BaseRule) ) return false;

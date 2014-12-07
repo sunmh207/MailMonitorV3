@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 
+import supportnet.common.timmer.HeartBeatTask;
 import supportnet.common.util.DateUtil;
 import supportnet.common.util.InfoHandler;
 import supportnet.mail.RuleProcessor;
@@ -22,6 +23,7 @@ public class CacheServlet extends javax.servlet.http.HttpServlet implements java
 		}*/
 		System.out.println("CacheServlet.init ...");
 		loadData();
+		HeartBeatTask.start();
 		System.out.println("CacheServlet.init ...[done]");
 	}
 

@@ -56,6 +56,15 @@
 			<s:textfield  name="rule.period" value="%{rule.period}" size="5"/> Minutes	 
         </td>
     </tr>
+    <tr>
+    	<td height="24" align="right" class="td_lable">Message ID</td>
+        <td class="td_edit">		
+			messageIdExpBefore:<s:textfield  name="rule.messageIdExpBefore" value="%{rule.messageIdExpBefore}" size="15"/>	 
+			messageIdExp:<s:textfield  name="rule.messageIdExp" value="%{rule.messageIdExp}" size="15"/>	 
+			messageIdExpBefore:<s:textfield  name="rule.messageIdExpAfter" value="%{rule.messageIdExpAfter}" size="15"/>	 
+			messageIdBy:<s:select name="rule.messageIdBy" list="#{'Subject':'Subject','Body':'Body','SubjectOrBody':'Subject Or Body'}" headerKey="" headerValue=""/>	 
+        </td>
+    </tr>
 	<tr>
         <td height="24" align="right" class="td_lable">Order</td>
         <td class="td_edit">		

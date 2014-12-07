@@ -10,7 +10,11 @@ import microsoft.exchange.webservices.data.EmailMessage;
 import supportnet.common.Constants;
 import supportnet.common.util.DateUtil;
 import supportnet.common.util.InfoHandler;
-
+/**
+ * No Mail Rule: If the specific mail hasn't come in a period of time, then trigger the rule.
+ * @author stanley.sun
+ *
+ */
 public class NoMailRule extends BaseRule {
 	private int period;
 	private String startTime;

@@ -52,7 +52,7 @@
     <tr>
         <td height="24" align="right" class="td_lable">Expected Time</td>
         <td class="td_edit">		
-			<s:textfield  name="rule.expectedTime" value="%{rule.expectedTime}" size="5"/> i.e. 10:00:00	 
+			<s:textfield  name="rule.expectedTime" value="%{rule.expectedTime}" size="5"/> i.e. 10:00:00  (Server Time)	 
         </td>
     </tr>
     <tr>

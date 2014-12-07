@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC   "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="supportnet.rule.domain">
-	<class name="supportnet.rule.domain.BaseRule" table="MN_RULE" discriminator-value="BaseRule">
+	<class name="supportnet.rule.domain.BaseRule" table="mn_rule" discriminator-value="BaseRule">
 		<id name="id" type="string" unsaved-value="null">
 			<column name="id" sql-type="varchar(32)" />
 			<generator class="uuid.hex" />
@@ -16,6 +16,12 @@
 		<property name="active" column="active" type="yes_no" not-null="true"/>
 		<property name="order" column="order_no" type="integer"/>
 		<property name="stopProcessingMoreRules" column="stop_Processing_More_Rules" type="yes_no" not-null="true"/>
+		<property name="messageIdExpBefore" column="messageId_Exp_Before" />
+		<property name="messageIdExp" column="messageId_Exp" />
+		<property name="messageIdExpAfter" column="messageId_Exp_After" />
+		<property name="messageIdBy" column="messageId_By" />
+		
+		
 		<many-to-one name="emailAccount" class="supportnet.mail.domain.EmailAccount" fetch="select" lazy="false">
             <column name="account_id" not-null="true" />
         </many-to-one>
@@ -29,7 +35,7 @@
 			<list-index column="order_no"/> 
 			<one-to-many class="supportnet.rule.domain.RuleCondition"/>
 		</list>  -->
-		<bag name="conditions" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+		<bag name="conditions" table="mn_condition" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
 			<key>
 				<column name="rule_id" not-null="true"/>
 			</key>
@@ -43,7 +49,7 @@
 			<list-index column="order_no"/>
 			<one-to-many class="supportnet.rule.domain.BaseAction"/>
 		</list>  -->
-		<bag name="actions" table="MN_ACTION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+		<bag name="actions" table="mn_action" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
 			<key>
 				<column name="rule_id" not-null="true"/>
 			</key>
@@ -64,7 +70,7 @@
 				<list-index column="order_no"/>
 				<one-to-many class="supportnet.rule.domain.RuleCondition2"/>
 			</list>  -->
-	        <bag name="conditions2" table="MN_CONDITION" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
+	        <bag name="conditions2" table="mn_contion" cascade="save-update, delete" inverse="true" lazy="false" fetch="select" order-by="order_no">
 				<key>
 					<column name="rule_id" not-null="true"/>
 				</key>
@@ -89,7 +95,7 @@
     	</subclass>  
 	</class>
 	
-	<class name="supportnet.rule.domain.AbstractRuleCondition" table="MN_Condition" >
+	<class name="supportnet.rule.domain.AbstractRuleCondition" table="mn_condition" >
 		<id name="id" type="string" unsaved-value="null">
 			<column name="id" sql-type="varchar(32)" />
 			<generator class="uuid.hex" />
@@ -108,7 +114,7 @@
     	</subclass>  
 	</class>
 	
-	<class name="supportnet.rule.domain.BaseAction" table="MN_ACTION" >
+	<class name="supportnet.rule.domain.BaseAction" table="mn_action" >
 		<id name="id" type="string" unsaved-value="null">
 			<column name="id" sql-type="varchar(32)" />
 			<generator class="uuid.hex" />
@@ -127,7 +133,7 @@
     	</subclass>  
 	</class>
 	
-	<class name="supportnet.rule.domain.Schedule" table="MN_Schedule" >
+	<class name="supportnet.rule.domain.Schedule" table="mn_schedule" >
 		<id name="id" type="string" unsaved-value="null">
 			<column name="id" sql-type="varchar(32)" />
 			<generator class="uuid.hex" />
